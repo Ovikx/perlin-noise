@@ -22,6 +22,21 @@ export class NoiseGenerator {
         return grid;
     }
 
+    avg (mat: number[][]): number {
+        let sum = 0;
+        let count = 0;
+
+        mat.forEach( (row) => {
+            row.forEach( (elem) => {
+                sum += elem;
+                count++;
+            })
+        }
+        );
+
+        return sum/count;
+    }
+
     min (mat: number[][]): number {
         let min = mat[0][0];
 
@@ -87,7 +102,13 @@ export class NoiseGenerator {
                 let sum = 0;
                 corners.forEach((corner) => {
                     const offsetVector: number[] = [pos[0]-corner[2], pos[1]-corner[3]];
-                    sum += offsetVector[0]*corner[0] + offsetVector[1]*corner[1];
+                    const dotProduct = offsetVector[0]*corner[0] + offsetVector[1]*corner[1];
+                    console.log(dotProduct);
+                    /* console.log({
+                        corner: corner,
+                        offsetVector: offsetVector
+                    }); */
+                    sum += dotProduct;
                 })
                 row.push(sum);
 
